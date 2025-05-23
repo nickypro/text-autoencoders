@@ -335,6 +335,10 @@ if __name__ == "__main__":
     print("\nAnalysis complete.")
 
 # %%
+
+print("hello")
+
+# %%
 def plot_dimensionality_reduction_interactive_length(results, texts, labels, lengths, title):
     """Plots interactive results using Plotly, coloring by length."""
     if len(results) == 0:

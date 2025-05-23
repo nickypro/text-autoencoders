@@ -2,6 +2,7 @@
 import json
 import torch
 import einops
+import pickle
 
 BASE_DIR = "../data"
 
@@ -35,6 +36,12 @@ def load_split_paragraphs(index):
     file_path = f"{folder}/split_paragraphs/paragraphs_{index:03d}.json"
     with open(file_path, 'r') as f:
         data = json.load(f)
+    return data
+
+def load_split_paragraphs_tokenized(index):
+    file_path = f"{folder}/split_paragraphs/paragraphs_tokenized_sonar_{index:03d}.pkl"
+    with open(file_path, 'rb') as f:
+        data = pickle.load(f)
     return data
 
 def load_split_paragraphs_inputs(index):

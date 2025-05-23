@@ -7,7 +7,7 @@ import torch
 import wandb
 from types import SimpleNamespace
 from torch.utils.data import DataLoader, TensorDataset
-from utils_models  import Linear, MLP
+from utils_models import Linear, MLP, ScaledLinear
 from utils_welford import load_or_compute_welford_stats, Normalizer
 from utils_load_data import load_res_data, load_embeds, load_split_paragraphs
 from utils_sonar import SonarDecoderCELoss
@@ -52,7 +52,9 @@ class Trainer:
         return SimpleNamespace(**self._config)
 
     def _init_model(self):
-        if self.c.model_type == 'linear':
+        if self.c.model_type == "scaled_linear":
+            return ScaledLinear(self.c)
+        elif self.c.model_type == 'linear':
             return Linear(self.c)
         elif self.c.model_type == 'mlp':
             return MLP(self.c)

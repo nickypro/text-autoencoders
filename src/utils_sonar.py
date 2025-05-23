@@ -33,6 +33,7 @@ class SonarDecoderCELoss(torch.nn.Module):
         if preloaded_decoder is None:
             # self.model: ConditionalTransformerDecoderModel = vec2text.model
             vec2text = EmbeddingToTextModelPipeline(decoder="text_sonar_basic_decoder", tokenizer="text_sonar_basic_encoder", device=device)
+            self.vec2text = vec2text
             self.model = vec2text.model
             self.decoder = self.model.decoder
             self.tokenizer = vec2text.tokenizer
@@ -223,6 +224,9 @@ class SonarDecoderCELoss(torch.nn.Module):
         print(f"Average target token probability: {accuracy_data['avg_prob']:.4f}")
         print(f"Loss: {loss.item():.4f}")
         return loss
+
+    def decode(self, embeddings, target_lang="eng_Latn", max_seq_len=512):
+        return self.vec2text.predict(embeddings, target_lang=target_lang, max_seq_len=max_seq_len)
 
 
 if __name__ == "__main__":

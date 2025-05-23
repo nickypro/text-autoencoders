@@ -1,1 +1,7 @@
 .qodo
+.venv
+wandb
+__pycache__
+sae_models
+data
+src/env

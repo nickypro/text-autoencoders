@@ -17,9 +17,13 @@ from utils_parallel import exponential_backoff, process_in_parallel
 # Load token from env file
 load_dotenv("./env")
 
-API_TOKEN = os.environ.get("OPENROUTER_API_KEY")
-MODEL_REPO = "meta-llama/llama-3.2-3b-instruct"
-BASE_URL = "https://openrouter.ai/api/v1"
+# API_TOKEN = os.environ.get("OPENROUTER_API_KEY")
+# MODEL_REPO = "meta-llama/llama-3.2-3b-instruct"
+# BASE_URL = "https://openrouter.ai/api/v1"
+
+API_TOKEN = os.environ.get("OPENAI_API_KEY")
+MODEL_REPO = "gpt-4o-mini-2024-07-18"
+BASE_URL = "https://api.openai.com/v1"
 
 openai = OpenAI(
     api_key=API_TOKEN,
@@ -44,5 +48,10 @@ def get_prompts_parallel(prompts: List[str], max_workers: int = 10) -> List[str]
 
     return process_in_parallel(items=prompts, process_func=get_prompt_for_text, max_workers=max_workers)
 
+
+# %%
+if __name__ == "__main__":
+    print(MODEL_REPO)
+    get_llama_completion("Hello, world!")
 
 # %%
